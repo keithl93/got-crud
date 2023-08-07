@@ -1,38 +1,358 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  padding: 20px;
+  height: 60px;
+  position: sticky; /* position을 sticky로 설정 */
+  top: 0; /* 상단에 고정 */
+  font-family: 'Marcellus', serif;
+  font-weight: bold;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.container .item1 {
+  margin-right: auto;
+  font-size: 50px;
+}
+
+.item {
+  margin-left: 30px;
+  margin-right: 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.item:hover {
+  color: red;
+}
+
+.home-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.vid-container,
+.over {
+  position: absolute;
+  /* top: 50px; Navbar의 높이만큼 아래로 이동 */
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 100px); /* viewport의 높이에서 Navbar의 높이를 뺀 값 */
+  overflow: hidden; /* over 영역을 벗어나는 내용 숨김 */
+}
+
+.over video {
+  position: absolute; /* fixed에서 absolute로 변경 */
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -1;
+}
+
+.nav-container {
+  position: relative;
+  z-index: 1;
+}
+
+.character-list {
+  margin-top: 0;
+  margin-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  list-style: none;
+  padding: 0;
+  color: #000000;
+  cursor: pointer;
+}
+
+.character-item {
+  padding-top: 30px;
+  width: 200px;
+  margin: 10px;
+}
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 15;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: rgba(0, 0, 0, 0.5); /* 배경 효과 */
+}
+
+/* .modal {
+  position: fixed;
+  width: 50vw;
+  height: 50vh;
+  transition: all 0.3s ease;
+  top: 25%;
+  left: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  background-color: rgb(62, 58, 58);
+  color: rgb(235, 235, 224);
+  border: 2px solid gray;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: pop-in 0.5s ease-out forwards;
+} */
+
+.modal {
+  position: relative;
+  width: 50%;
+  /* max-width: 500px; */
+  height: auto;
+  background-color: rgb(62, 58, 58);
+  color: rgb(235, 235, 224);
+  border: 2px solid gray;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  animation: pop-in 0.5s ease-out forwards;
+}
+
+.modal-font {
+  font-family: 'Marcellus', serif;
+}
+
+.name-font {
+  font-family: 'Marcellus', serif;
+  font-weight: bold;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.name-font:hover {
+  color: red;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.background {
+  background-image: url('https://images.unsplash.com/photo-1515255384510-23e8b6a6ca3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtZSUyMG9mJTIwdGhyb25lfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.gifs-container {
+  display: flex;
+  overflow-x: scroll;
+  width: 50vw;
+}
+
+.close-button {
+  position: absolute; /* 절대 위치 지정 */
+  top: 10px; /* 상단에서의 거리 */
+  right: 10px; /* 오른쪽에서의 거리 */
+  background: none; /* 버튼 배경 없음 */
+  border: none; /* 버튼 테두리 없음 */
+  font-size: 20px; /* X 글자 크기 조정 */
+  color: #ffffff; /* X 글자 색상 */
+  cursor: pointer; /* 마우스 커서 모양 변경 */
+}
+
+.close-button:hover {
+  color: #ff5555;
+}
+
+.edit-button {
+  font-family: 'Marcellus', serif; /* 폰트 설정 */
+  font-weight: bold; /* 글자 굵게 */
+  color: #ffffff; /* 글자 색상 */
+  background-color: #333333; /* 배경 색상 */
+  border: 2px solid #ffffff; /* 테두리 설정 */
+  padding: 10px 20px; /* 내부 패딩 */
+  margin: 10px; /* 외부 마진 */
+  cursor: pointer; /* 마우스 커서 모양 변경 */
+  transition: all 0.3s ease; /* 애니메이션 효과 */
+  border-radius: 5px; /* 모서리 둥글게 */
+  width: 100px;
+  display: inline-block;
+  align-self: center;
+}
+
+.edit-button:hover {
+  background-color: #555555; /* 마우스 오버 시 배경 색상 변경 */
+  border: 2px solid #777777; /* 마우스 오버 시 테두리 색상 변경 */
+}
+
+.delete-button {
+  font-family: 'Marcellus', serif;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #ff5555;
+  border: 2px solid #ffffff;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  width: 100px; /* Edit 버튼과 동일한 크기로 설정 */
+  display: inline-block;
+  align-self: center;
+}
+
+.delete-button:hover {
+  background-color: #ff7777;
+  border: 2px solid #ff9999;
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* 간격 조정 */
+  background-color: #1c1313; /* 배경색 추가 */
+  padding: 20px; /* 패딩 추가 */
+  border-radius: 10px; /* 모서리 둥글게 */
+  border: 1px solid white;
+}
+
+.create-form input,
+.create-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Marcellus', serif;
+  transition: all 0.3s ease;
+  color: #00ff00;
+}
+
+.input {
+  background-color: black;
+}
+
+.create-form input:focus,
+.create-form textarea:focus {
+  border: 1px solid #333333; /* 포커스 시 테두리 색상 변경 */
+}
+
+.save-button {
+  font-family: 'Marcellus', serif;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #4caf50; /* 색상 변경 */
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  width: 100px;
+  display: inline-block;
+  align-self: center;
+}
+
+.save-button:hover {
+  background-color: #45a049; /* 마우스 오버 시 색상 변경 */
+}
+
+.cancel-button {
+  font-family: 'Marcellus', serif;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #f44336; /* 색상 변경 */
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  width: 100px;
+  display: inline-block;
+  align-self: center;
+}
+
+.cancel-button:hover {
+  background-color: #f57253; /* 마우스 오버 시 색상 변경 */
+}
+
+.create-character-container {
+  background-color: #130c0a;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.create-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.create-form button {
+  padding: 10px 20px;
+  background-color: #e11223;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 120px;
+  display: inline-block;
+  align-self: center;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+.create-form button:hover {
+  background-color: #eb5d1b;
+}
+
+.create-character-container h1 {
+  font-family: 'Marecellus', serif;
+  text-align: center;
+  color: #333;
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.create-character-container {
+  position: relative;
+  z-index: 1;
 }
